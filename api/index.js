@@ -5,8 +5,9 @@ dotenv.config();
 import UserRouter from './routes/user.route.js';
 import AuthRouter from './routes/auth.route.js';
 import connectDB from './db/connectDB.js';
+import cors from 'cors';
 const app = express();
-
+app.use(cors())
 app.use(express.json());
 app.use('/api/user', UserRouter)
 app.use('/api/auth', AuthRouter)
