@@ -3,10 +3,12 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 import UserRouter from './routes/user.route.js';
+import AuthRouter from './routes/auth.route.js';
 const app = express();
 
 app.use(express.json());
 app.use('/api/user', UserRouter)
+app.use('/api/auth', AuthRouter)
 
 const connectDB = async () => {
   try {
