@@ -16,18 +16,22 @@ const DashSidebar = () => {
         if(tabFromUrl) {
     
           setTab(tabFromUrl)
+          
         }
     })
   return (
     <Sidebar className='w-full md:w-56'>
         <Sidebar.Items>
             <Sidebar.ItemGroup>
-                <Link to={'/dashboard?tab=profile'}>
+
+
+              
+                <Link to='/dashboard?tab=profile'>
                 
-                <Sidebar.Item active={tab === 'profile'} icon={HiUser} to='/dashboard?tab=profile' labelColor='dark' label={"User"}>Profile
+                <Sidebar.Item as='div' active={tab === 'profile'} icon={HiUser} to='/dashboard?tab=profile' labelColor='dark' label={"User"}>Profile
                 </Sidebar.Item>
                 </Link>
-                <Sidebar.Item icon={HiArrowCircleRight} to='/dashboard?tab=profile' labelColor='dark' label={"User"}>Signout
+                <Sidebar.Item icon={HiArrowCircleRight} to='/dashboard?tab=profile' labelColor='dark'  label={"User"}>Signout
                 </Sidebar.Item>
             </Sidebar.ItemGroup>
         </Sidebar.Items>
