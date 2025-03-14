@@ -2,6 +2,7 @@ import { Alert, Button, Modal, TextInput } from 'flowbite-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { Link } from 'react-router-dom';
 import {HiOutlineExclamationCircle} from 'react-icons/hi';
 import app from '../firebase.js';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -9,7 +10,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { updateFailure, updateStart, updateSuccess, deleteFailure, deleteStart, deleteSuccess, signoutSuccess } from '../app/user/userSlice.js';
 import { useDispatch } from 'react-redux';
 const DashProfile = () => {
-    const { currentUser, error } = useSelector(state => state.user);
+    const { currentUser, error, loading } = useSelector(state => state.user);
     const [imageFile, setImageFile] = useState(null);
     const [imageFileUrl, setImageFileUrl] = useState(null);
     const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
@@ -221,8 +222,18 @@ const DashProfile = () => {
                 />
                 <TextInput type='password' id='password' placeholder='password' onChange={handleChange} />
                 <Button type='submit' gradientDuoTone='purpleToBlue' outline>
-                    Update
+                    {loading ? 'Loading...' : 'Update'}
                 </Button>
+                {
+                    currentUser.isAdmin && (
+                        <Link to='/create-post'>
+                        <Button outline disabled={loading  || imageFileUploading} type='button' gradientDuoTone='purpleToPink'
+                        className='w-full'>
+                                Create a post
+                        </Button>
+                        </Link>
+                    )
+                }
             </form>
             <div className="text-red-500 flex justify-between mt-5 cursor-pointer">
                 <span onClick={() => setShowModal(true)}>Delete account</span>
