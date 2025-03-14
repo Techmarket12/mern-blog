@@ -55,17 +55,23 @@ export const test = (req, res) => {
   };
   
   export const deleteUser = async (req, res, next) => { 
+    console.log("User ID from token:", req.user.id);  // ID du token de l'utilisateur connecté
+    console.log("User ID from params:", req.params.userId);  // ID de l'utilisateur à supprimer
 
+    // Vérifie si l'utilisateur connecté tente de supprimer son propre compte
     if(req.user.id !== req.params.userId) {
-      return next(errorHandler(403, 'You are not allowed to delete this user'));
-
+        return next(errorHandler(403, 'You are not allowed to delete this user'));
     }
 
     try {
-      await User.findOneAndDelete(req.params.userId);
-      res.status(200).json({message: 'User has been deleted'});
+        const user = await User.findByIdAndDelete(req.params.userId);
+        if (!user) {
+            return next(errorHandler(404, 'User not found'));  // Si l'utilisateur n'est pas trouvé
+        }
+        res.status(200).json({ message: 'User has been deleted' });
+        console.log('User has been deleted');
     } catch (error) {
-      
+        console.error("Error deleting user:", error);
+        next(error);
     }
-
-  }
+};

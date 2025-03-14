@@ -6,7 +6,8 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
-        secure: false,       // Cela est nécessaire si tu ne travailles pas avec HTTPS
+        changeOrigin: true,  // S'assure que l'origine est bien changée
+        secure: false,  // Pas de besoin de https en développement
       },
     },
   },
