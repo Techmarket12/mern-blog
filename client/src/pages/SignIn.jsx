@@ -14,36 +14,31 @@ const SignIn = () => {
   const handleChange = (e) => {
     setFormData({...formData, [e.target.id]: e.target.value.trim()})
   }
-  const handleSubmit = async(e) => {
-    e.preventDefault()
-    if(!formData.email || !formData.password) {
-      dispatch(signInFallure('All fields are required'))
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.email || !formData.password) {
+      return dispatch(signInFallure('Please fill all the fields'));
     }
     try {
-      dispatch(signInStart())
-      const response = await fetch('http://localhost:3000/api/auth/signin', {
+      dispatch(signInStart());
+      const res = await fetch('/api/auth/signin', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-
-        
-        
-      })
-      const data = await response.json()
-      if(data.success == false) {
-        dispatch(signInFallure(data.message))
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signInFallure(data.message));
       }
-      if(response.ok) {
-        dispatch(signInSuccess(data))
-        navigate('/home')
+
+      if (res.ok) {
+        dispatch(signInSuccess(data));
+        navigate('/');
       }
     } catch (error) {
-      dispatch(signInFallure(error.message))
+      dispatch(signInFallure(error.message));
     }
-  }
-  
+  };
   return (
     <div className='min-h-screen mt-20'>
       <div className='flex flex-col p-3 max-w-3xl mx-auto md:flex-row md:items-center  gap-5'>
