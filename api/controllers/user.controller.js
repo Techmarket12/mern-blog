@@ -75,3 +75,11 @@ export const test = (req, res) => {
         next(error);
     }
 };
+
+export const signout = (req, res, next) => {
+  try {
+    res.clearCookie('access_token').status(200).json({ message: 'Signout successful' });
+  } catch (error) {
+    next(error)
+  }
+}
