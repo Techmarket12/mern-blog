@@ -59,7 +59,7 @@ export const test = (req, res) => {
     console.log("User ID from params:", req.params.userId);  // ID de l'utilisateur à supprimer
 
     // Vérifie si l'utilisateur connecté tente de supprimer son propre compte
-    if(req.user.id !== req.params.userId) {
+    if( !req.user.isAdmin && req.user.id !== req.params.userId) {
         return next(errorHandler(403, 'You are not allowed to delete this user'));
     }
 

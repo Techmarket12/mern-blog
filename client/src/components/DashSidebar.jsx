@@ -1,5 +1,5 @@
 import { Sidebar } from 'flowbite-react'
-import { HiUser, HiArrowCircleRight, HiDocumentText } from 'react-icons/hi'
+import { HiUser, HiArrowCircleRight, HiDocumentText, HiOutlineUserGroup } from 'react-icons/hi'
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
@@ -48,9 +48,19 @@ const DashSidebar = () => {
               
                 <Link to='/dashboard?tab=profile'>
                 
-                <Sidebar.Item as='div' active={tab === 'profile'} icon={HiUser} to='/dashboard?tab=profile' labelColor='dark' label={"User"}>Profile
+                <Sidebar.Item as='div' active={tab === 'profile'} icon={HiUser} to='/dashboard?tab=profile' labelColor='dark' label={  currentUser.isAdmin ? 'Admin' : "User"}>Profile
                 </Sidebar.Item>
                 </Link>
+                {
+                    currentUser.isAdmin && (
+
+                <Link to={`/dashboard?tab=users`}>
+                <Sidebar.Item active={tab === 'users'} icon={HiOutlineUserGroup} as="div">Users 
+
+                </Sidebar.Item>
+                </Link>
+                    )
+                }
                 {
                     currentUser.isAdmin && (
 
@@ -61,7 +71,7 @@ const DashSidebar = () => {
                 </Link>
                     )
                 }
-                <Sidebar.Item icon={HiArrowCircleRight} to='/dashboard?tab=profile' labelColor='dark'  label={"User"} onClick={handleSignout}>Signout
+                <Sidebar.Item icon={HiArrowCircleRight} to='/dashboard?tab=profile' labelColor='dark'   onClick={handleSignout}>Signout
                 </Sidebar.Item>
             </Sidebar.ItemGroup>
         </Sidebar.Items>
