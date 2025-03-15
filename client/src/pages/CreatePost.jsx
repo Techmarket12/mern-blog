@@ -109,7 +109,7 @@ const CreatePost = () => {
                 </Select>
             </div>
             <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
-                <FileInput type='file' accept='image/*' id='image' onChange={(e) => setFile(e.target.files[0])} required/>
+                <FileInput type='file' accept='image/*' id='image' onChange={(e) => setFile(e.target.files[0])}/>
                 <Button onClick={handleUploadImage} size='sm' outline type='button' gradientDuoTone= 'purpleToBlue'>
                     {
                         imageUploadProgress ? <div className='w-16 h-16' >
