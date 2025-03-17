@@ -112,7 +112,6 @@ export const getComments = async (req, res, next) => {
         const sortDirection = req.query.sort === 'desc' ? -1 : 1
 
         const comments = await Comment.find().sort({createdAt: sortDirection}).skip(startIndex).limit(limit)
-        res.status(200).json(comments)
         const totalComments = await Comment.countDocuments()
         const now = new Date()
         const oneMonthAgo = new Date( now.getFullYear(), now.getMonth() - 1, now.getDate())
