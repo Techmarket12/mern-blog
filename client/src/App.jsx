@@ -1,6 +1,6 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from "./pages/home"
+import Home from "./pages/Home.jsx"
 import About from "./pages/About"
 import Dashboard from "./pages/Dashboard"
 import Projects from "./pages/Projects"
@@ -14,7 +14,7 @@ import CreatePost from "./pages/CreatePost"
 import UpdatePost from "./pages/UpdatePost"
 import PostPage from "./pages/PostPage"
 import ScrollToTop from "./components/ScrollToTop"
-
+import Search from "./pages/Search.jsx"
 function App() {
 
   return (
@@ -22,7 +22,7 @@ function App() {
     <ScrollToTop/>
     <Header/>
       <Routes>
-        <Route path="/home" element={<Home/>} />
+        <Route path="/" element={<Home/>} />
         <Route path="/about" element={<About/>} />
         <Route element={<PrivateRoute/>}>
           <Route path="/dashboard" element={<Dashboard/>} />       
@@ -35,6 +35,7 @@ function App() {
         <Route path="/post/:postSlug" element={<PostPage/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
+        <Route path="/search" element={<Search/>} />
       </Routes>
         <FooterComp/>
     </BrowserRouter>
