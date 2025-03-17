@@ -30,8 +30,7 @@ export const getPostComments = async (req, res) => {
     }
 }
 
-export const likeComment = async (req, res, next) => { 
-
+export const likeComment = async (req, res, next) => {
     try {
         const comment = await Comment.findById(req.params.commentId)
 
@@ -41,14 +40,17 @@ export const likeComment = async (req, res, next) => {
         const userIndex = comment.likes.indexOf(req.user.id)
 
         if(userIndex === -1) {
+            // L'utilisateur n'a pas encore aimé le commentaire
             comment.numberOfLikes += 1
-            comment.likes.push(req.user.id)
-        } else { 
+            comment.likes.push(req.user.id)  // Ajoute l'utilisateur à la liste des likes
+        } else {
+            // L'utilisateur a déjà aimé ce commentaire, donc on enlève son like
             comment.numberOfLikes -= 1
-            comment.likes.split(userIndex, 1)
+            comment.likes.splice(userIndex, 1)  // Retire l'utilisateur de la liste des likes
         }
+
         await comment.save()
-        res.status(200).json(comment)
+        res.status(200).json(comment)  // Renvoie le commentaire mis à jour
     } catch (error) {
         next(error)
     }
