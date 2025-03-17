@@ -53,12 +53,19 @@ const DashSidebar = () => {
                 </Link>
                 {
                     currentUser.isAdmin && (
-
+                        <>
+                        
                 <Link to={`/dashboard?tab=users`}>
                 <Sidebar.Item active={tab === 'users'} icon={HiOutlineUserGroup} as="div">Users 
 
                 </Sidebar.Item>
                 </Link>
+                <Link to={`/dashboard?tab=comments`}>
+                <Sidebar.Item active={tab === 'comments'} icon={HiOutlineUserGroup} as="div">Comments 
+
+                </Sidebar.Item>
+                </Link>
+                        </>
                     )
                 }
                 {
